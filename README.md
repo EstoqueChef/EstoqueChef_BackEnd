@@ -77,16 +77,28 @@ estoque-receitas-backend/
 
 # ✅ Funcionalidades Planejadas
 
-- Cadastro de insumos/ingredientes no estoque
-- Atualização e visualização do estoque
-- Cadastro de receitas (com insumos e quantidades)
-- Planejamento de produção (n vezes cada receita)
-- Cálculo automático de:
-  - Total de insumos necessários
-  - Comparação com estoque
-  - Geração de lista do que precisa ser comprado
-- Endpoints de API REST para todas as funções
-- Testes automatizados com pytest
+## Funcionalidades
+
+- **Cadastro de insumos/ingredientes no estoque**
+  - Nome, unidade (kg, L, un, etc), quantidade disponível
+  - **Data de validade (opcional)** para controle de perecíveis
+- **Atualização e visualização do estoque**
+  - Ver o que há disponível, filtrando por nome ou validade
+- **Cadastro de receitas**
+  - Lista de insumos com quantidades por unidade
+- **Planejamento de produção**
+  - Planejar a produção de múltiplas receitas
+- **Cálculos automáticos**
+  - Total de insumos necessários com base no planejamento
+  - Comparação automática com o estoque
+  - Geração da lista de compras com o que está faltando
+- **Controle de validade dos insumos**
+  - Insumos com validade próxima são destacados
+  - Pode ser usado para evitar desperdício
+- **API REST**
+  - Endpoints para todas as funcionalidades (CRUD, cálculo, etc)
+- **Testes automatizados**
+  - Testes com `pytest` para garantir consistência do sistema
 
 # 📝 TODO - Etapas de Desenvolvimento
 
