@@ -100,42 +100,49 @@ estoque-receitas-backend/
 - **Testes automatizados**
   - Testes com `pytest` para garantir consistência do sistema
 
-# 📝 TODO - Etapas de Desenvolvimento
+# ✅ TODO - Sistema de Gestão de Estoque e Receitas
 
-## �️ Estrutura Inicial
+## 📦 Cadastro de insumos/ingredientes no estoque
+- [ ] Criar modelo de dados para insumos
+- [ ] Incluir campo de unidade e quantidade
+- [ ] Adicionar campo opcional `data_validade`
+- [ ] Criar endpoints de CRUD (`POST`, `GET`, `PUT`, `DELETE`)
 
-- Criar projeto com poetry new
-- Criar estrutura de diretórios app/ conforme acima
-- Adicionar FastAPI, Uvicorn e ORM como dependências
+## 📊 Atualização e visualização do estoque
+- [ ] Listar todos os insumos com filtros por nome e validade
+- [ ] Implementar ordenação por data de validade
+- [ ] Atualizar quantidade do estoque manualmente
 
-## � Modelagem de Dados
+## 🍲 Cadastro de receitas
+- [ ] Criar modelo de receita (nome, descrição)
+- [ ] Relacionar receitas com múltiplos insumos e quantidades
+- [ ] CRUD completo para receitas
 
-- ItemEstoque (id, nome, unidade, quantidade atual)
-- Receita (id, nome)
-- IngredienteReceita (id, receita_id, item_id, quantidade)
-- PlanejamentoReceita (id, receita_id, vezes)
+## 🧾 Planejamento de produção
+- [ ] Criar endpoint para selecionar receitas e definir quantidades desejadas
+- [ ] Armazenar planejamentos ou processar de forma transitória
 
-## ⚙️ Lógica de Negócio
+## 🧮 Cálculos automáticos
+- [ ] Calcular insumos totais necessários com base no planejamento
+- [ ] Comparar com estoque atual
+- [ ] Gerar lista do que precisa ser comprado
 
-- Função para calcular insumos necessários baseado no planejamento
-- Função para comparar com estoque e gerar lista de compras
-- Função para atualizar o estoque após produção
+## ⏰ Controle de validade dos insumos
+- [ ] Destacar insumos com validade próxima (ex: < 7 dias)
+- [ ] Criar endpoint para listar insumos vencidos ou quase vencendo
+- [ ] (Opcional) Criar alerta automático ou relatório
 
-## 🌐 API (Endpoints REST)
+## 🔗 API REST
+- [ ] Implementar endpoints REST para todas as entidades
+- [ ] Garantir estrutura RESTful (rotas, métodos, status codes)
+- [ ] Documentar com OpenAPI (FastAPI faz isso por padrão em `/docs`)
 
-- GET/POST /estoque - listar, criar itens de estoque
-- GET/POST /receitas - listar, criar receitas
-- GET/POST /planejamento - definir quantas vezes fazer cada receita
-- GET /analise - calcular insumos totais e o que falta comprar
+## 🧪 Testes automatizados
+- [ ] Criar testes com `pytest` para:
+  - [ ] Cadastro e consulta de insumos
+  - [ ] Cadastro e uso de receitas
+  - [ ] Planejamento e cálculo de produção
+  - [ ] Comparação de estoque
+  - [ ] Geração da lista de compras
+  - [ ] Validade de insumos
 
-## � Testes
-
-- Configurar Pytest
-- Testes unitários para os serviços de cálculo
-- Testes de integração para a API
-
-## 📚 Extras
-
-- Documentação automática com Swagger (nativo no FastAPI)
-- Adicionar CORS para integração futura com frontend
-- Setup de .env para configs
