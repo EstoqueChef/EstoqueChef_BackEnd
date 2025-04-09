@@ -59,18 +59,20 @@ Para rodar a API, utilize o seguinte comando:
 task run
 ```
 
-# 🧠 Estrutura do Projeto
+## 🧠 Estrutura do Projeto
+
+```plaintext
 estoque-receitas-backend/
 ├── app/
-│ ├── models/ # Modelos do banco de dados (ORM)
-│ ├── schemas/ # Schemas Pydantic (entrada e saída)
-│ ├── services/ # Regras de negócio
-│ ├── api/ # Rotas da API
-│ ├── core/ # Configurações gerais (banco de dados, settings)
-│ └── main.py # Inicialização do FastAPI
-├── tests/ # Testes automatizados
-├── pyproject.toml # Configuração do Poetry e dependências
-└── README.md # Este arquivo
+│   ├── models/           # Modelos do banco de dados (ORM)
+│   ├── schemas/          # Schemas Pydantic (entrada e saída)
+│   ├── services/         # Regras de negócio
+│   ├── api/              # Rotas da API
+│   ├── core/             # Configurações gerais (banco de dados, settings)
+│   └── main.py           # Inicialização do FastAPI
+├── tests/                # Testes automatizados
+├── pyproject.toml        # Configuração do Poetry e dependências
+└── README.md             # Este arquivo
 
 
 # ✅ Funcionalidades Planejadas
