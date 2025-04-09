@@ -73,7 +73,7 @@ estoque-receitas-backend/
 ├── tests/                # Testes automatizados
 ├── pyproject.toml        # Configuração do Poetry e dependências
 └── README.md             # Este arquivo
-
+```
 
 # ✅ Funcionalidades Planejadas
 
