@@ -1,222 +1,128 @@
+
 # 🍲 Sistema de Gestão de Estoque e Receitas
 
-Backend do sistema que permite ao usuário gerenciar seu estoque de ingredientes/materiais, cadastrar receitas e planejar produções. O sistema calcula automaticamente o que há em estoque e o que precisa ser comprado com base nas receitas e suas quantidades desejadas.
+Backend para gerenciamento de estoque de insumos e planejamento de produções com base em receitas. Calcula automaticamente o que há em estoque, o que falta, e gera uma lista de compras.
 
 ---
 
 ## 🚀 Tecnologias Utilizadas
 
 - **Python 3.13**
-- **Poetry** para gerenciamento de dependências
-- **Pipx** para gerenciamento de dependências
-- **FastAPI** (API web rápida e moderna)
+- **Poetry** e **Pipx** para gerenciamento de dependências
+- **FastAPI** (API moderna e rápida)
 - **SQLAlchemy** ou **Tortoise ORM** (a definir)
-- **SQLite** (para persistência local inicial)
+- **SQLite** (local) e **PostgreSQL** (produção)
 - **Pydantic** (validação de dados)
-- **Uvicorn** (servidor ASGI para desenvolvimento)
+- **Uvicorn** (servidor ASGI)
+- **Pytest** (testes automatizados)
 
 ---
 
-## Instalação
+## ⚙️ Instalação
 
-1. Instale o `pipx`:
-   ```sh
-   pip install --user pipx
-   pipx ensurepath
-   ```
+```sh
+pip install --user pipx
+pipx ensurepath
 
-2. Instale o `poetry`:
-   ```sh
-   pipx install poetry
-   ```
+pipx install poetry
+poetry self add poetry-plugin-shell
 
-3. Adicione o plugin de shell do `poetry`:
-   ```sh
-   poetry self add poetry-plugin-shell
-   ```
+poetry shell
+poetry python install 3.13
+poetry env use 3.13
+poetry install
+```
 
-4. Crie um ambiente virtual e ative-o:
-   ```sh
-   poetry shell
-   ```
+---
 
-5. Certifique-se de que está utilizando a versão correta do Python:
-   ```sh
-   poetry python install 3.13
-   poetry env use 3.13
-   ```
-
-6. Instale as dependências do projeto:
-   ```sh
-   poetry install
-   ```
-
-## Execução da API
-
-Para rodar a API, utilize o seguinte comando:
+## ▶️ Execução da API
 
 ```sh
 task run
 ```
+
+---
 
 ## 🧠 Estrutura do Projeto
 
 ```plaintext
 estoque-receitas-backend/
 ├── app/
-│   ├── models/           # Modelos do banco de dados (ORM)
-│   ├── schemas/          # Schemas Pydantic (entrada e saída)
-│   ├── services/         # Regras de negócio
-│   ├── api/              # Rotas da API
-│   ├── core/             # Configurações gerais (banco de dados, settings)
-│   └── main.py           # Inicialização do FastAPI
-├── tests/                # Testes automatizados
-├── pyproject.toml        # Configuração do Poetry e dependências
-└── README.md             # Este arquivo
+│   ├── models/         # Modelos ORM
+│   ├── schemas/        # Schemas Pydantic
+│   ├── services/       # Regras de negócio
+│   ├── api/            # Rotas REST
+│   ├── core/           # Configurações e inicialização
+│   └── main.py         # App FastAPI
+├── repositories/       # Abstrações de acesso ao BD
+├── tests/              # Testes Pytest
+├── pyproject.toml
+└── README.md
 ```
 
-# ✅ Funcionalidades Planejadas
+---
 
-## Funcionalidades
+## 📐 Arquitetura
 
-- **Cadastro de insumos/ingredientes no estoque**
-  - Nome, unidade (kg, L, un, etc), quantidade disponível
-  - **Data de validade (opcional)** para controle de perecíveis
-- **Atualização e visualização do estoque**
-  - Ver o que há disponível, filtrando por nome ou validade
-- **Cadastro de receitas**
-  - Lista de insumos com quantidades por unidade
-- **Planejamento de produção**
-  - Planejar a produção de múltiplas receitas
-- **Cálculos automáticos**
-  - Total de insumos necessários com base no planejamento
-  - Comparação automática com o estoque
-  - Geração da lista de compras com o que está faltando
-- **Controle de validade dos insumos**
-  - Insumos com validade próxima são destacados
-  - Pode ser usado para evitar desperdício
-- **API REST**
-  - Endpoints para todas as funcionalidades (CRUD, cálculo, etc)
-- **Testes automatizados**
-  - Testes com `pytest` para garantir consistência do sistema
+```plaintext
+Clientes (Web/Mobile) ─► FastAPI (main.py)
+                        └── api/ (rotas REST)
+                            └── services/ (lógica de negócio)
+                                └── repositories/ (acesso a dados)
+                                    └── models/ (ORM)
+                                        └── Banco de Dados (SQLite/PostgreSQL)
+```
 
-# ✅ TODO - Sistema de Gestão de Estoque e Receitas
+---
 
-## 📦 Cadastro de insumos/ingredientes no estoque
-- [ ] Criar modelo de dados para insumos
-- [ ] Incluir campo de unidade e quantidade
-- [ ] Adicionar campo opcional `data_validade`
-- [ ] Criar endpoints de CRUD (`POST`, `GET`, `PUT`, `DELETE`)
+## 🧾 Funcionalidades
 
-## 📊 Atualização e visualização do estoque
-- [ ] Listar todos os insumos com filtros por nome e validade
-- [ ] Implementar ordenação por data de validade
-- [ ] Atualizar quantidade do estoque manualmente
+### Estoque e Insumos
+- Cadastro de insumos (nome, unidade, quantidade, validade)
+- Atualização manual do estoque
+- Filtros e ordenação por nome e validade
 
-## 🍲 Cadastro de receitas
-- [ ] Criar modelo de receita (nome, descrição)
-- [ ] Relacionar receitas com múltiplos insumos e quantidades
-- [ ] CRUD completo para receitas
+### Receitas
+- Cadastro de receitas (nome, descrição)
+- Relacionamento com insumos e quantidades
 
-## 🧾 Planejamento de produção
-- [ ] Criar endpoint para selecionar receitas e definir quantidades desejadas
-- [ ] Armazenar planejamentos ou processar de forma transitória
+### Planejamento de Produção
+- Planejamento com múltiplas receitas e quantidades
+- Cálculo de insumos totais
+- Comparação com estoque
 
-## 🧮 Cálculos automáticos
-- [ ] Calcular insumos totais necessários com base no planejamento
-- [ ] Comparar com estoque atual
-- [ ] Gerar lista do que precisa ser comprado
+### Lista de Compras
+- Geração automática da lista de insumos faltantes
 
-## ⏰ Controle de validade dos insumos
-- [ ] Destacar insumos com validade próxima (ex: < 7 dias)
-- [ ] Criar endpoint para listar insumos vencidos ou quase vencendo
-- [ ] (Opcional) Criar alerta automático ou relatório
+### Validade
+- Destaque de insumos com validade próxima (< 7 dias)
+- Listagem de vencidos e quase vencendo
 
-## 🔗 API REST
-- [ ] Implementar endpoints REST para todas as entidades
-- [ ] Garantir estrutura RESTful (rotas, métodos, status codes)
-- [ ] Documentar com OpenAPI (FastAPI faz isso por padrão em `/docs`)
+### API RESTful
+- CRUD completo para insumos, receitas, planejamentos e compras
+- Documentação automática com OpenAPI
 
-## 🧪 Testes automatizados
-- [ ] Criar testes com `pytest` para:
-  - [ ] Cadastro e consulta de insumos
-  - [ ] Cadastro e uso de receitas
-  - [ ] Planejamento e cálculo de produção
-  - [ ] Comparação de estoque
-  - [ ] Geração da lista de compras
-  - [ ] Validade de insumos
+### Testes
+- Cobertura com Pytest para todas as funcionalidades principais
 
-+──────────────────────────────────────────────────────+
-|                     Clientes (Frontends)             |
-|  - Web admin (React, Vue, etc)                       |
-|  - App mobile (React Native)                         |
-|  - API clients / integrações externas                |
-+──────────────────────────────────────────────────────+
-                     │
-                     ▼
-+──────────────────────────────────────────────────────+
-|                   FastAPI (main.py)                  |
-|  - Inicialização do app                              |
-|  - Carregamento de configurações                     |
-|  - Middleware, CORS, logging                         |
-+──────────────────────────────────────────────────────+
-                     │
-                     ▼
-+──────────────────────────────────────────────────────+
-|                       Rotas (api/)                   |
-|  - Endpoints REST organizados por módulo:            |
-|    - /insumos                                         |
-|    - /receitas                                       |
-|    - /producao                                       |
-|    - /estoque                                        |
-|    - /compras                                        |
-+──────────────────────────────────────────────────────+
-                     │
-                     ▼
-+──────────────────────────────────────────────────────+
-|                    Services (services/)              |
-|  - Lógica de negócio e orquestração:                 |
-|    - Cálculo de produção                             |
-|    - Comparação com estoque                          |
-|    - Geração da lista de compras                     |
-+──────────────────────────────────────────────────────+
-                     │
-                     ▼
-+──────────────────────────────────────────────────────+
-|                  Repositórios (repositories/)        |
-|  - Acesso ao banco de dados                          |
-|  - SQLAlchemy ou Tortoise abstraídos                 |
-|  - CRUD, filtros e queries                           |
-+──────────────────────────────────────────────────────+
-                     │
-                     ▼
-+──────────────────────────────────────────────────────+
-|                    Modelos ORM (models/)             |
-|  - Tabelas do banco de dados                         |
-|  - Relacionamentos entre insumos, receitas, etc      |
-+──────────────────────────────────────────────────────+
-                     │
-                     ▼
-+──────────────────────────────────────────────────────+
-|               Banco de Dados (SQLite/Postgres)       |
-|  - SQLite local no dev                               |
-|  - PostgreSQL no deploy                              |
-+──────────────────────────────────────────────────────+
+---
 
+## 🗃️ Modelos Principais
+
+```plaintext
 [Insumo]
 - id
 - nome
 - unidade (kg, g, L, un)
 - quantidade_disponivel
-- data_validade (opcional)
+- data_validade
 
 [Receita]
 - id
 - nome
 - descricao
 
-[ReceitaInsumo] (N:N com quantidade)
-- id
+[ReceitaInsumo]
 - receita_id → Receita
 - insumo_id → Insumo
 - quantidade_utilizada
@@ -224,10 +130,28 @@ estoque-receitas-backend/
 [PlanejamentoProducao]
 - id
 - data
-- receitas: lista de (receita_id, quantidade_desejada)
+- receitas: lista (receita_id, quantidade_desejada)
 
 [ListaCompra]
-- id
 - planejamento_id → PlanejamentoProducao
 - insumo_id
 - quantidade_faltante
+```
+
+---
+
+## ✅ TODO
+
+- [ ] CRUD de insumos
+- [ ] Filtros e ordenações por validade
+- [ ] Cadastro e vínculo de receitas com insumos
+- [ ] Planejamento de produção e cálculo de insumos
+- [ ] Comparação com estoque e geração da lista de compras
+- [ ] Controle de validade (alertas e relatórios)
+- [ ] Testes automatizados com Pytest
+
+---
+
+## 📄 Licença
+
+Projeto de código aberto. Sinta-se à vontade para contribuir!
