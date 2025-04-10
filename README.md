@@ -146,3 +146,88 @@ estoque-receitas-backend/
   - [ ] Geração da lista de compras
   - [ ] Validade de insumos
 
++──────────────────────────────────────────────────────+
+|                     Clientes (Frontends)             |
+|  - Web admin (React, Vue, etc)                       |
+|  - App mobile (React Native)                         |
+|  - API clients / integrações externas                |
++──────────────────────────────────────────────────────+
+                     │
+                     ▼
++──────────────────────────────────────────────────────+
+|                   FastAPI (main.py)                  |
+|  - Inicialização do app                              |
+|  - Carregamento de configurações                     |
+|  - Middleware, CORS, logging                         |
++──────────────────────────────────────────────────────+
+                     │
+                     ▼
++──────────────────────────────────────────────────────+
+|                       Rotas (api/)                   |
+|  - Endpoints REST organizados por módulo:            |
+|    - /insumos                                         |
+|    - /receitas                                       |
+|    - /producao                                       |
+|    - /estoque                                        |
+|    - /compras                                        |
++──────────────────────────────────────────────────────+
+                     │
+                     ▼
++──────────────────────────────────────────────────────+
+|                    Services (services/)              |
+|  - Lógica de negócio e orquestração:                 |
+|    - Cálculo de produção                             |
+|    - Comparação com estoque                          |
+|    - Geração da lista de compras                     |
++──────────────────────────────────────────────────────+
+                     │
+                     ▼
++──────────────────────────────────────────────────────+
+|                  Repositórios (repositories/)        |
+|  - Acesso ao banco de dados                          |
+|  - SQLAlchemy ou Tortoise abstraídos                 |
+|  - CRUD, filtros e queries                           |
++──────────────────────────────────────────────────────+
+                     │
+                     ▼
++──────────────────────────────────────────────────────+
+|                    Modelos ORM (models/)             |
+|  - Tabelas do banco de dados                         |
+|  - Relacionamentos entre insumos, receitas, etc      |
++──────────────────────────────────────────────────────+
+                     │
+                     ▼
++──────────────────────────────────────────────────────+
+|               Banco de Dados (SQLite/Postgres)       |
+|  - SQLite local no dev                               |
+|  - PostgreSQL no deploy                              |
++──────────────────────────────────────────────────────+
+
+[Insumo]
+- id
+- nome
+- unidade (kg, g, L, un)
+- quantidade_disponivel
+- data_validade (opcional)
+
+[Receita]
+- id
+- nome
+- descricao
+
+[ReceitaInsumo] (N:N com quantidade)
+- id
+- receita_id → Receita
+- insumo_id → Insumo
+- quantidade_utilizada
+
+[PlanejamentoProducao]
+- id
+- data
+- receitas: lista de (receita_id, quantidade_desejada)
+
+[ListaCompra]
+- id
+- planejamento_id → PlanejamentoProducao
+- insumo_id
+- quantidade_faltante
