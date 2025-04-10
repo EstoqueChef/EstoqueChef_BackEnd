@@ -62,19 +62,6 @@ estoque-receitas-backend/
 
 ---
 
-## 📐 Arquitetura
-
-```plaintext
-Clientes (Web/Mobile) ─► FastAPI (main.py)
-                        └── api/ (rotas REST)
-                            └── services/ (lógica de negócio)
-                                └── repositories/ (acesso a dados)
-                                    └── models/ (ORM)
-                                        └── Banco de Dados (SQLite/PostgreSQL)
-```
-
----
-
 ## 🧾 Funcionalidades
 
 ### Estoque e Insumos
